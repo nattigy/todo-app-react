@@ -5,19 +5,19 @@ import { ApolloProvider } from '@apollo/client';
 
 import App from './App';
 
-// import configureStore from "./store/store";
+import configureStore from "./store/store";
 import { client } from './apollo/client';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/css/main.sass";
 
-// const store = configureStore();
+const store = configureStore();
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    {/*<Provider store={store}>*/}
+    <Provider store={store}>
       <App />
-    {/*</Provider>*/}
+    </Provider>
   </ApolloProvider>,
   document.getElementById('root')
 );
