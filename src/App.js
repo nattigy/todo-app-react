@@ -4,10 +4,10 @@ import { connect } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
 
-import Navigation from "./component/navigation/navigation";
-import PreLoader from "./component/preloader/preloader";
-import SignIn from "./pages/auth/sign-in";
-import SignUp from "./pages/auth/sign-up";
+// import Navigation from "./component/navigation/navigation";
+// import PreLoader from "./component/preloader/preloader";
+// import SignIn from "./pages/auth/sign-in";
+// import SignUp from "./pages/auth/sign-up";
 
 import "./main.css";
 
@@ -55,9 +55,9 @@ const App = (props) => {
       ) : (
         <Router>
           <Switch>
-            <Route exact path="/signin" component={SignIn} />
-             <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/*" component={SignIn} />
+            {/*<Route exact path="/signin" component={SignIn} />*/}
+            {/* <Route exact path="/signup" component={SignUp} />*/}
+            {/*<Route exact path="/*" component={SignIn} />*/}
           </Switch>
         </Router>
       )}
