@@ -6,7 +6,7 @@ export const CREATE_TASK = gql`
     $isDaily: Boolean
     $notes: String
     $dueDate: Date
-    $reminderTime: Date
+    $reminderTime: String
     $owner: MongoID
   ){
     taskCreateOne(record: {
@@ -99,7 +99,7 @@ export const UPDATE_TASK_IS_DAILY = gql`
 
 export const UPDATE_TASK_REMINDER_TIME = gql`
   mutation changeTaskIsDaily(
-    $reminderTime: Date,
+    $reminderTime: String,
     $task_id: MongoID!
   ){
     taskUpdateById(

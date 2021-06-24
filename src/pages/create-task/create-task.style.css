@@ -1,0 +1,12 @@
+.create-task-paper{
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: #212121 0 0 5px;
+  background-color: #2e2e2e;
+}
+
+.form-input{
+  width: 100%;
+}

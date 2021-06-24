@@ -4,13 +4,17 @@ import { connect } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
 
-// import Navigation from "./component/navigation/navigation";
-// import PreLoader from "./component/preloader/preloader";
+import Navigation from "./component/navigation/navigation";
+import PreLoader from "./component/preloader/preloader";
 import SignIn from "./pages/auth/sign-in";
 import SignUp from "./pages/auth/sign-up";
 import ResetPassword from "./pages/auth/reset-password";
 
 import "./main.css";
+import Today from "./pages/today/today";
+import Daily from "./pages/daily/daily";
+import CreateTask from "./pages/create-task/create-task";
+import TaskDetail from "./pages/task-detail/task-detail";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -30,25 +34,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const App = (props) => {
-  const { isLoggedIn, user } = props;
+  const { isLoggedIn } = props;
   const classes = useStyles();
 
   return isLoggedIn == null ? (
     <div className="bg-primary w-100 loading App">
-      {/*<PreLoader />*/}
+      <PreLoader />
     </div>
   ) : (
     <div className={classes.container}>
       {isLoggedIn ? (
         <div className="d-flex">
           <Router>
-            {/*<Navigation />*/}
+            <Navigation />
             <main className={classes.content}>
               <div className={classes.toolbar} />
               <div className="App">
                 <Switch>
-                  {console.log(user)}
-                  <Route exact path="/" render={() => <div>Home</div>} />
+                  <Route exact path="/" render={() => <Redirect to="/today"/>}/>
+                  <Route exact path="/today" component={Today}/>
+                  <Route exact path="/daily" component={Daily}/>
+                  <Route exact path="/add_task" component={CreateTask}/>
+                  <Route exact path="/detail/:id" component={TaskDetail}/>
                   <Route exact path="/*" render={() => <Redirect to="/"/>} />
                 </Switch>
               </div>
@@ -73,7 +80,6 @@ const mapStateToProps = (state) => {
   return {
     loginError: state.auth.loginError,
     isLoggingIn: state.auth.isLoggingIn,
-    user: state.auth.user,
     isLoggedIn: state.auth.isLoggedIn,
     errorMessage: state.auth.errorMessage,
   };

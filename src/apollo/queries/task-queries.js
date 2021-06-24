@@ -36,10 +36,10 @@ export const GET_TASK_DETAIL = gql`
 `;
 
 export const GET_TODAYS_TASKS = gql`
-  query getTodaysTask($date: Date){
+  query getTodaysTask($dueDate: Date){
     taskMany(
       filter: {
-        reminderTime: $date
+        dueDate: $dueDate
       },
       sort: REMINDERTIME_ASC
     ){
@@ -81,7 +81,7 @@ export const GET_CALENDAR = gql`
       filter: {
         owner: $user_id
       },
-      sort: REMINDERTIME_ASC
+      sort: DUEDATE_ASC
     ){
       _id
       title
@@ -101,7 +101,7 @@ export const GET_TASKS_BY_STATUS = gql`
       filter: {
         status: $status
       },
-      sort: REMINDERTIME_ASC
+      sort: DUEDATE_DESC
     ){
       _id
       title

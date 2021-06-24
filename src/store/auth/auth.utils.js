@@ -48,9 +48,6 @@ export const logoutUser = () => dispatch => {
     .catch(error => dispatch(logoutError(error)));
 };
 
-// fbConfig.auth()
-//   .signOut()
-
 export const registerUser = ({email, password}) => dispatch => {
   dispatch(requestSignUp());
   fbConfig.auth()
@@ -91,7 +88,7 @@ export const resetPassword = ({email}) => dispatch => {
 
 const getUser = async ({firebaseID}) => {
   let result = null;
-  await fetch('http://localhost:5000/', {
+  await fetch('https://frozen-oasis-35227.herokuapp.com/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
