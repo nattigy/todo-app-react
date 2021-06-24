@@ -17,7 +17,6 @@ import { resetPassword } from "../../store/auth/auth.utils";
 
 const ResetPassword = (props) => {
   const [email, setEmail] = useState("");
-  const [open, setOpen] = useState(true);
 
   const {
     resettingDone,
@@ -34,11 +33,9 @@ const ResetPassword = (props) => {
 
   if (isLoggedIn) {
     return <Redirect to="/" />;
-  } else if (!open) {
-    return <Redirect to="/" />;
   } else {
     return (
-      <Dialog onClose={() => setOpen(false)} open={open}>
+      <Dialog open={true}>
         <form onSubmit={handleSubmit}>
           {isResetting ? (
             <div className="position-relative px-3 py-2">
@@ -49,7 +46,7 @@ const ResetPassword = (props) => {
               <Avatar className="avatar" component="div">
                 <LockOutlinedIcon />
               </Avatar>
-              <Typography component="h1" variant="h5">
+              <Typography component="h1" variant="h5" className="text-white">
                 Resent Password
               </Typography>
               <TextField
@@ -83,6 +80,11 @@ const ResetPassword = (props) => {
               >
                 Reset
               </button>
+              <div className="small">
+                <Link to="/signin" variant="body2">
+                  Sign In
+                </Link>
+              </div>
             </Paper>
           )}
         </form>

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import { connect } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -8,6 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 // import PreLoader from "./component/preloader/preloader";
 import SignIn from "./pages/auth/sign-in";
 import SignUp from "./pages/auth/sign-up";
+import ResetPassword from "./pages/auth/reset-password";
 
 import "./main.css";
 
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const App = (props) => {
-  const { isLoggedIn } = props;
+  const { isLoggedIn, user } = props;
   const classes = useStyles();
 
   return isLoggedIn == null ? (
@@ -46,7 +47,9 @@ const App = (props) => {
               <div className={classes.toolbar} />
               <div className="App">
                 <Switch>
+                  {console.log(user)}
                   <Route exact path="/" render={() => <div>Home</div>} />
+                  <Route exact path="/*" render={() => <Redirect to="/"/>} />
                 </Switch>
               </div>
             </main>
@@ -57,7 +60,8 @@ const App = (props) => {
           <Switch>
             <Route exact path="/signin" component={SignIn} />
              <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/*" component={SignIn} />
+             <Route exact path="/forgot-password" component={ResetPassword} />
+            <Route exact path="/*" render={() => <Redirect to="/signin"/>} />
           </Switch>
         </Router>
       )}
@@ -69,6 +73,7 @@ const mapStateToProps = (state) => {
   return {
     loginError: state.auth.loginError,
     isLoggingIn: state.auth.isLoggingIn,
+    user: state.auth.user,
     isLoggedIn: state.auth.isLoggedIn,
     errorMessage: state.auth.errorMessage,
   };

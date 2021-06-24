@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 
@@ -13,18 +13,24 @@ import {
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 import { registerUser } from "../../store/auth/auth.utils";
+import {useMutation} from "@apollo/client";
+import {CREATE_USER} from "../../apollo/mutations/user-mutation";
+import {receiveLogin} from "../../store/auth/auth.actions";
 
 const SignUp = (props) => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordMismatch, setPasswordMismatch] = useState(true);
-  const [open, setOpen] = useState(true);
+
+  const [createUser, { data, loading, error }] = useMutation(CREATE_USER);
 
   const {
     signUpError,
     isLoggedIn,
+    user,
     errorMessage,
     isLoggingIn,
   } = props;
@@ -32,18 +38,34 @@ const SignUp = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (passwordMismatch)
-      props.signUp({ email, firstName, middleName, password });
+      props.signUp({ email, password })
   };
 
-  if (isLoggedIn) {
-    return <Redirect to="/" />;
-  } else if (!open) {
+  useEffect(()=>{
+    if(user)
+      createUser({
+        variables: {
+          firstName: firstName,
+          middleName: middleName,
+          lastName: lastName,
+          email: email,
+          firebaseId: user.uid,
+        }
+      }).then(res => {
+        let result = res.data["userCreateOne"]["record"]
+        props.signIn({
+          ...result
+        })
+      })
+  },[user])
+
+  if (data || isLoggedIn) {
     return <Redirect to="/" />;
   } else {
     return (
-      <Dialog onClose={() => setOpen(false)} open={open}>
+      <Dialog open={true}>
         <form onSubmit={handleSubmit} className="">
-          {isLoggingIn ? (
+          {isLoggingIn || loading ? (
             <div className="position-relative px-3 py-2">
               <CircularProgress />
             </div>
@@ -52,7 +74,7 @@ const SignUp = (props) => {
               <Avatar className="avatar" component="div">
                 <LockOutlinedIcon />
               </Avatar>
-              <Typography component="h1" variant="h5">
+              <Typography component="h1" variant="h5" className="text-white">
                 Sign Up
               </Typography>
               <TextField
@@ -61,6 +83,7 @@ const SignUp = (props) => {
                 autoFocus
                 id="email"
                 label="Email address"
+                value={email}
                 name="email"
                 onChange={(e) => setEmail(e.target.value)}
                 className="my-2"
@@ -69,6 +92,7 @@ const SignUp = (props) => {
                 required
                 fullWidth
                 id="firstName"
+                value={firstName}
                 label="First Name"
                 name="firstName"
                 onChange={(e) => setFirstName(e.target.value)}
@@ -79,6 +103,7 @@ const SignUp = (props) => {
                 fullWidth
                 id="middleName"
                 label="Middle Name"
+                value={middleName}
                 name="middleName"
                 onChange={(e) => setMiddleName(e.target.value)}
                 className="my-2"
@@ -87,15 +112,17 @@ const SignUp = (props) => {
                 required
                 fullWidth
                 id="lastName"
+                value={lastName}
                 label="Last Name"
                 name="lastName"
-                onChange={(e) => setMiddleName(e.target.value)}
+                onChange={(e) => setLastName(e.target.value)}
                 className="my-2"
               />
               <TextField
                 required
                 fullWidth
                 name="password"
+                value={password}
                 label="Password"
                 type="password"
                 id="password"
@@ -124,6 +151,11 @@ const SignUp = (props) => {
                   {errorMessage.message}
                 </Typography>
               )}
+              {error && (
+                <Typography component="p" className="errorText small">
+                  {error.message}
+                </Typography>
+              )}
               <button
                 type="submit"
                 style={{ width: "100%" }}
@@ -149,6 +181,7 @@ const mapStateToProps = (state) => {
     signUpError: state.auth.signUpError,
     isLoggingIn: state.auth.isLoggingIn,
     isLoggedIn: state.auth.isLoggedIn,
+    user: state.auth.user,
     errorMessage: state.auth.errorMessage,
   };
 };
@@ -156,6 +189,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     signUp: (newUser) => dispatch(registerUser(newUser)),
+    signIn: (newUser) => dispatch(receiveLogin(newUser)),
   };
 };
 

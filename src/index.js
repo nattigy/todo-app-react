@@ -9,7 +9,7 @@ import configureStore from "./store/store";
 import { client } from './apollo/client';
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./assets/css/main.sass";
+import "./assest/css/main.sass";
 
 const store = configureStore();
 

@@ -57,7 +57,7 @@ const authReducers = (state = {}, action) => {
         case AuthTypes.SIGN_UP_SUCCESS:
             return {
                 ...state,
-                isLoggedIn: true,
+                isLoggedIn: false,
                 isLoggingIn: false,
                 user: action.user
             };
