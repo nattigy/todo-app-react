@@ -6,8 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 // import Navigation from "./component/navigation/navigation";
 // import PreLoader from "./component/preloader/preloader";
-// import SignIn from "./pages/auth/sign-in";
-// import SignUp from "./pages/auth/sign-up";
+import SignIn from "./pages/auth/sign-in";
+import SignUp from "./pages/auth/sign-up";
 
 import "./main.css";
 
@@ -34,14 +34,14 @@ const App = (props) => {
 
   return isLoggedIn == null ? (
     <div className="bg-primary w-100 loading App">
-      <PreLoader />
+      {/*<PreLoader />*/}
     </div>
   ) : (
     <div className={classes.container}>
       {isLoggedIn ? (
         <div className="d-flex">
           <Router>
-            <Navigation />
+            {/*<Navigation />*/}
             <main className={classes.content}>
               <div className={classes.toolbar} />
               <div className="App">
@@ -55,9 +55,9 @@ const App = (props) => {
       ) : (
         <Router>
           <Switch>
-            {/*<Route exact path="/signin" component={SignIn} />*/}
-            {/* <Route exact path="/signup" component={SignUp} />*/}
-            {/*<Route exact path="/*" component={SignIn} />*/}
+            <Route exact path="/signin" component={SignIn} />
+             <Route exact path="/signup" component={SignUp} />
+            <Route exact path="/*" component={SignIn} />
           </Switch>
         </Router>
       )}
