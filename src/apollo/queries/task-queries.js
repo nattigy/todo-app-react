@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 
+//Get all logged in user tasks query
 export const GET_MY_TASKS = gql`
   query getMyTasks($user_id: MongoID!){
     taskMany(
@@ -20,6 +21,7 @@ export const GET_MY_TASKS = gql`
   }
 `;
 
+//Get task detail query
 export const GET_TASK_DETAIL = gql`
   query getTaskDetail($task_id: MongoID!){
     taskById(_id: $task_id){
@@ -35,11 +37,13 @@ export const GET_TASK_DETAIL = gql`
   }
 `;
 
+//Get users today's task query
 export const GET_TODAYS_TASKS = gql`
-  query getTodaysTask($dueDate: Date){
+  query getTodaysTask($dueDate: Date, $owner: MongoID){
     taskMany(
       filter: {
-        dueDate: $dueDate
+        dueDate: $dueDate,
+        owner: $owner
       },
       sort: REMINDERTIME_ASC
     ){
@@ -55,11 +59,13 @@ export const GET_TODAYS_TASKS = gql`
   }
 `;
 
+//Get users daily tasks query
 export const GET_DAILY_TASKS = gql`
-  query getDailyTasks{
+  query getDailyTasks($owner: MongoID){
     taskMany(
       filter: {
-       isDaily: true
+       isDaily: true,
+       owner: $owner
       },
       sort: REMINDERTIME_ASC
     ){
@@ -75,31 +81,13 @@ export const GET_DAILY_TASKS = gql`
   }
 `;
 
-export const GET_CALENDAR = gql`
-  query getMyTasks($user_id: MongoID!){
-    taskMany(
-      filter: {
-        owner: $user_id
-      },
-      sort: DUEDATE_ASC
-    ){
-      _id
-      title
-      status
-      isDaily
-      notes
-      dueDate
-      reminderTime
-      createdAt
-    }
-  }
-`;
-
+//Get user tasks by status query
 export const GET_TASKS_BY_STATUS = gql`
-  query getTasksByStatus($status: EnumTaskStatus){
+  query getTasksByStatus($status: EnumTaskStatus, $owner: MongoID){
     taskMany(
       filter: {
-        status: $status
+        status: $status,
+        owner: $owner
       },
       sort: DUEDATE_DESC
     ){

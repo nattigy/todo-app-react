@@ -9,10 +9,10 @@ const SingleTask = (props) => {
       <Link to={`/detail/${task._id}`} className="max-width text-white">
         <div className="d-flex">
           <p className="w-100 font-20 text-uppercase">{task.title}</p>
-          <p className="w-100 text-right">
-            {handleUpdateStatus && <div>Due date: {task.dueDate.split("T")[0]}</div>}
-            <div>Remind me at: {task.reminderTime}</div>
-          </p>
+          <div className="w-100 text-right">
+            {handleUpdateStatus && <p className="mb-2">Due date: {task.dueDate.split("T")[0]}</p>}
+            <p className="mb-2">Remind me at: {task.reminderTime}</p>
+          </div>
         </div>
       </Link>
       <div className="d-flex">
@@ -24,9 +24,11 @@ const SingleTask = (props) => {
         </div>}
         <div className="text-right w-100">
           {handleUpdateStatus && (task.status === "NOT_STARTED" ?
-            <button onClick={() => handleUpdateStatus(task._id, "STARTED")}>Mark as Started</button> :
+            <button onClick={() => handleUpdateStatus(task._id, "STARTED")}
+                    className="button-style">Mark as Started</button> :
             task.status === "STARTED" ?
-              <button onClick={() => handleUpdateStatus(task._id, "DONE")}>Mark as Done</button> :
+              <button onClick={() => handleUpdateStatus(task._id, "DONE")}
+                      className="button-style">Mark as Done</button> :
               <></>)
           }
         </div>

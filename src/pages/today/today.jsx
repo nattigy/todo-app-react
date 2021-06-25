@@ -7,6 +7,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import {CHANGE_TASK_STATUS} from "../../apollo/mutations/task-mutations";
 import SingleTask from "../../component/single-task/single-task";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -15,15 +16,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Today = () => {
+const Today = ({user}) => {
   const classes = useStyles();
 
   const [today, setToday] = useState("");
 
   const [getTaskToday, {loading, data}] = useLazyQuery(GET_TODAYS_TASKS, {
-    // fetchPolicy: "network-only"
+    fetchPolicy: "network-only"
   });
-  const [updateTaskStatus] = useMutation(CHANGE_TASK_STATUS);
+  const [updateTaskStatus] = useMutation(CHANGE_TASK_STATUS, {
+    fetchPolicy: "no-cache"
+  });
 
   const handleUpdateStatus = (taskId, status) => {
     updateTaskStatus({
@@ -34,7 +37,8 @@ const Today = () => {
     }).then(res => {
       getTaskToday({
         variables: {
-          dueDate: today
+          dueDate: today,
+          owner: user._id
         },
       })
     })
@@ -43,13 +47,15 @@ const Today = () => {
   useEffect(() => {
     const year = (new Date()).getFullYear();
     const month = (new Date()).getUTCMonth() + 1;
-    const date = 24;
+    const date = (new Date()).getDate();
     setToday(`${year}-${month >= 10 ? month : `0${month}`}-${date >= 10 ? date : `0${date}`}T00:00:00.000Z`)
     getTaskToday({
       variables: {
-        dueDate: `${year}-${month >= 10 ? month : `0${month}`}-${date >= 10 ? date : `0${date}`}T00:00:00.000Z`
+        dueDate: `${year}-${month >= 10 ? month : `0${month}`}-${date >= 10 ? date : `0${date}`}T00:00:00.000Z`,
+        owner: user._id
       },
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -59,7 +65,7 @@ const Today = () => {
         <CircularProgress color="inherit"/>
       </Backdrop>
       {data && data["taskMany"] ? data["taskMany"].map(task => (
-          <SingleTask task={task} key={task.key} handleUpdateStatus={handleUpdateStatus}/>
+          <SingleTask task={task} key={task._id} handleUpdateStatus={handleUpdateStatus}/>
         )) :
         <div className="text-center vh-100 pt-5 mt-5">
           <p className="pt-5">no tasks for today</p>
@@ -70,4 +76,10 @@ const Today = () => {
   )
 }
 
-export default Today;
+const mapStateToProps = state => {
+  return {
+    user: state.auth.user
+  }
+}
+
+export default connect(mapStateToProps)(Today);

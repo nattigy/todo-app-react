@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 
+//Create task mutation
 export const CREATE_TASK = gql`
   mutation createTask(
     $title: String
@@ -22,6 +23,7 @@ export const CREATE_TASK = gql`
   }
 `;
 
+//Change task status mutation
 export const CHANGE_TASK_STATUS = gql`
   mutation changeTaskStatus(
     $status: EnumTaskStatus,
@@ -37,6 +39,7 @@ export const CHANGE_TASK_STATUS = gql`
   }
 `;
 
+//Update task title mutation
 export const UPDATE_TASK_TITLE = gql`
   mutation changeTaskTitle(
     $title: String,
@@ -52,6 +55,7 @@ export const UPDATE_TASK_TITLE = gql`
   }
 `;
 
+//Update task notes mutation
 export const UPDATE_TASK_NOTES = gql`
   mutation changeTaskNotes(
     $notes: String,
@@ -67,6 +71,7 @@ export const UPDATE_TASK_NOTES = gql`
   }
 `;
 
+//Update due date mutation
 export const UPDATE_TASK_DUE_DATE = gql`
   mutation changeTaskDueDate(
     $dueDate: Date,
@@ -82,6 +87,7 @@ export const UPDATE_TASK_DUE_DATE = gql`
   }
 `;
 
+//Update is daily mutation
 export const UPDATE_TASK_IS_DAILY = gql`
   mutation changeTaskIsDaily(
     $isDaily: Boolean,
@@ -97,6 +103,7 @@ export const UPDATE_TASK_IS_DAILY = gql`
   }
 `;
 
+//Update task reminder mutation
 export const UPDATE_TASK_REMINDER_TIME = gql`
   mutation changeTaskIsDaily(
     $reminderTime: String,
@@ -112,6 +119,7 @@ export const UPDATE_TASK_REMINDER_TIME = gql`
   }
 `;
 
+//Delete task mutation
 export const DELETE_TASK = gql`
 mutation changeTaskIsDaily($task_id: MongoID!){
   taskRemoveById(_id: $task_id){

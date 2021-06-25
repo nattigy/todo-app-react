@@ -6,6 +6,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import {makeStyles} from "@material-ui/core/styles";
 import SingleTask from "../../component/single-task/single-task";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Daily = () => {
+const Daily = ({user}) => {
   const classes = useStyles();
 
   const [getTaskDaily, {loading, data}] = useLazyQuery(GET_DAILY_TASKS, {
@@ -22,7 +23,11 @@ const Daily = () => {
   });
 
   useEffect(() => {
-    getTaskDaily()
+    getTaskDaily({
+      variables: {
+        owner: user._id
+      }
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -33,7 +38,7 @@ const Daily = () => {
         <CircularProgress color="inherit"/>
       </Backdrop>
       {data && data["taskMany"] ? data["taskMany"].map(task => (
-          <SingleTask task={task} key={task.key}/>
+          <SingleTask task={task} key={task._id}/>
         )) :
         <div className="text-center vh-100 pt-5 mt-5">
           <p className="pt-5">no tasks for today</p>
@@ -44,4 +49,10 @@ const Daily = () => {
   )
 }
 
-export default Daily;
+const mapStateToProps = state => {
+  return {
+    user: state.auth.user
+  }
+}
+
+export default connect(mapStateToProps)(Daily);

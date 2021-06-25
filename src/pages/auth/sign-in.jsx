@@ -84,10 +84,10 @@ const SignIn = (props) => {
                 Sign In
               </button>
               <div className="d-flex w-100 small">
-                <Link className="text-left text-nowrap" to="/forgot-password">
+                <Link type="button" className="text-left text-nowrap" to="/forgot-password">
                   Forgot Password?
                 </Link>
-                <Link to="/signup" className="text-nowrap text-right w-100">
+                <Link type="button" to="/signup" className="text-nowrap text-right w-100">
                   Don't have an account
                 </Link>
               </div>

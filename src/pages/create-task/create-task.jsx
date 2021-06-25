@@ -57,20 +57,20 @@ const CreateTask = (props) => {
         <form onSubmit={handleSubmit}>
           <div className="pt-3 row">
             <div className="col-12 col-md-6 p-2">
-              <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="form-input"
-                     placeholder="Title"/>
+              <input type="text" value={title} onChange={(e) => setTitle(e.target.value)}
+                     className="input-style" placeholder="Title"/>
             </div>
             <div className="col-12 col-md-6 p-2">
-              <input type="text" value={notes} onChange={(e) => setNotes(e.target.value)} className="form-input"
-                     placeholder="Notes"/>
+              <input type="text" value={notes} onChange={(e) => setNotes(e.target.value)}
+                     className="input-style" placeholder="Notes"/>
             </div>
             <div className="col-12 col-md-6 p-2">
-              <input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} className="form-input"
-                     placeholder="Due Date"/>
+              <input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)}
+                     className="input-style" placeholder="Due Date"/>
             </div>
             <div className="col-12 col-md-6 p-2">
               <input type="time" value={reminderTime} onChange={(e) => setReminderTime(e.target.value)}
-                     className="form-input" placeholder="Reminder Time"/>
+                     className="input-style" placeholder="Reminder Time"/>
             </div>
             <div className="d-flex p-2">
               <p className="py-2 my-0">Is it a Daily task?</p>
@@ -78,7 +78,7 @@ const CreateTask = (props) => {
             </div>
           </div>
           <div className="text-right">
-            <button type="submit">Add</button>
+            <button type="submit" className="button-style">Add</button>
           </div>
           {error && (
             <Typography component="p" className="errorText small">

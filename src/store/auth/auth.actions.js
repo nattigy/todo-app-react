@@ -1,5 +1,8 @@
 import AuthTypes from "./auth.types";
 
+/*Defining actions that are dispatched to the auth reducer
+ */
+
 export const requestLogin = () => {
     return {
         type: AuthTypes.LOGIN_REQUEST

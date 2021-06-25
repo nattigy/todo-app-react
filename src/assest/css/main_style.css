@@ -75,6 +75,27 @@ button {
     max-width: 500px;
 }
 
+.button-style{
+    background-color: #005cbf;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 15px;
+}
+
+.button-style:hover{
+    background-color: #003c80;
+    box-shadow: 5px 5px 10px #1f1f1f;
+}
+
+.input-style{
+    border: none;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    outline: none;
+}
+
 .font-16{
     font-size: 16px;
 }

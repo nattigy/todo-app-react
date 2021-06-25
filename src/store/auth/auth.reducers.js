@@ -1,5 +1,8 @@
 import AuthTypes from "./auth.types";
 
+/*Define initial state of the app as {}
+Then set the state of the app based on the action dispatched
+ */
 const authReducers = (state = {}, action) => {
     switch (action.type) {
         case AuthTypes.LOGIN_REQUEST:
