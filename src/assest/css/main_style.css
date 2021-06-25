@@ -1,0 +1,128 @@
+a:hover {
+    color: aliceblue !important;
+    text-decoration: none !important;
+}
+
+button {
+    outline: none !important;
+}
+
+.MuiPaper-root {
+    background-color: #2d2d2d !important;
+}
+
+.MuiList-root {
+    background-color: #2e2e2e !important;
+}
+
+.MuiFormLabel-root{
+    color: #ffffff80 !important
+}
+
+.MuiInputBase-input {
+    color: #fff !important;
+}
+
+.MuiListItem-root.Mui-selected, .MuiListItem-root.Mui-selected:hover, .MuiListItem-root:hover {
+    background-color: rgba(255, 255, 255, 0.123) !important;
+}
+
+.MuiAutocomplete-popper div {
+    color: white !important;
+}
+
+.listIcons {
+    color: #fff !important;
+    text-decoration: none !important;
+}
+
+.listItem {
+    color: "#fff" !important;
+    text-decoration: "none" !important;
+}
+
+.listItem:hover{
+    background-color: "#ffffff45" !important;
+}
+
+.job-detail-btn {
+    font-weight: 400 !important;
+}
+
+.MuiBox-root {
+    padding: 10px !important;
+}
+
+.MuiTabs-scroller {
+    overflow: auto !important;
+}
+
+.MuiTabs-scroller::-webkit-scrollbar {
+    display: none;
+}
+
+.tab-cont{
+    overflow: hidden;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.z-index{
+    margin-bottom: 2px;
+}
+
+.max-width{
+    max-width: 500px;
+}
+
+.button-style{
+    background-color: #005cbf;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 15px;
+}
+
+.button-style:hover{
+    background-color: #003c80;
+    box-shadow: 5px 5px 10px #1f1f1f;
+}
+
+.input-style{
+    border: none;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    outline: none;
+}
+
+.font-16{
+    font-size: 16px;
+}
+
+.font-18{
+    font-size: 18px;
+}
+
+.font-20{
+    font-size: 20px;
+}
+
+.searchButton {
+    background-color: #BB7900 !important;
+    color: #fff !important;
+}
+
+.searchButton:hover {
+    background-color: #DF9000 !important;
+}
+
+@media (min-width: 993px) {
+    .position-md-fixed {
+        position: fixed !important;
+    }
+
+    .MuiBox-root {
+        padding: 25px !important;
+    }
+}
