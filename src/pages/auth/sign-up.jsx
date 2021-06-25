@@ -57,6 +57,7 @@ const SignUp = (props) => {
           ...result
         })
       })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[user])
 
   if (data || isLoggedIn) {
